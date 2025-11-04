@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APS Workshop - Login Required</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #F5F5F5;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .login-container {
+            background: #FFFFFF;
+            padding: 60px 80px;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+            border: 2px solid #FFD100;
+        }
+        
+        .logo {
+            font-size: 5em;
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            color: #000000;
+            font-size: 2.2em;
+            margin-bottom: 15px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        
+        p {
+            color: #333333;
+            font-size: 1.15em;
+            margin-bottom: 35px;
+            line-height: 1.6;
+        }
+        
+        .login-button {
+            display: inline-block;
+            background: #FFD100;
+            color: #000000;
+            padding: 18px 50px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 1.2em;
+            font-weight: 700;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 15px rgba(255, 209, 0, 0.3);
+            border: 2px solid #FFD100;
+            letter-spacing: 0.3px;
+        }
+        
+        .login-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(255, 209, 0, 0.5);
+            background: #FFDB33;
+            border-color: #FFDB33;
+        }
+        
+        .security-note {
+            margin-top: 35px;
+            padding: 20px;
+            background: #F0FDF4;
+            border-radius: 12px;
+            color: #166534;
+            font-size: 0.95em;
+            border: 1px solid #BBF7D0;
+        }
+        
+        .security-note strong {
+            color: #16A34A;
+        }
+        
+        .features {
+            margin-top: 30px;
+            text-align: left;
+        }
+        
+        .features h3 {
+            color: #000000;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .features ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .features li {
+            color: #333333;
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .features li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #FFD100;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        
+        .footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #E5E5E5;
+            color: #666666;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo">🔐</div>
+        <h1>Authentication Required</h1>
+        <p>Please login with your Autodesk account to access the APS Workshop</p>
+        <a href="/auth/login?returnUrl=/" class="login-button">
+            Login with Autodesk
+        </a>
+        
+        <div class="features">
+            <h3>What you'll access:</h3>
+            <ul>
+                <li>Interactive Swagger UI</li>
+                <li>Complete APS API Collection</li>
+                <li>Step-by-Step Help Guide</li>
+                <li>Real-time API Testing</li>
+            </ul>
+        </div>
+        
+        <div class="security-note">
+            <strong>🛡️ Secure Login</strong><br>
+            Your credentials are protected by Autodesk SSO.
+        </div>
+        
+        <div class="footer">
+            Powered by Autodesk Platform Services (APS)
+        </div>
+    </div>
+</body>
+</html>
+

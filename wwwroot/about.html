@@ -1,0 +1,1679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Developer Guide - APS Workshop</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+            padding: 40px 20px;
+            line-height: 1.6;
+            color: #333333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            border: 2px solid #FFD100;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding-bottom: 30px;
+            border-bottom: 3px solid #FFD100;
+        }
+        
+        .header h1 {
+            font-size: 3em;
+            color: #000000;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .header .subtitle {
+            font-size: 1.3em;
+            color: #666666;
+            font-weight: 400;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 12px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1em;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-primary {
+            background: #FFD100;
+            color: #000000;
+            border-color: #FFD100;
+            box-shadow: 0 4px 15px rgba(255, 209, 0, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 209, 0, 0.5);
+            background: #FFDB33;
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: #000000;
+            border-color: #333333;
+        }
+        
+        .btn-secondary:hover {
+            background: #333333;
+            color: #FFFFFF;
+            transform: translateY(-2px);
+        }
+        
+        .section {
+            margin-bottom: 50px;
+        }
+        
+        .section h2 {
+            font-size: 2em;
+            color: #000000;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #FFD100;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .section h3 {
+            font-size: 1.5em;
+            color: #000000;
+            margin: 30px 0 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .section h4 {
+            font-size: 1.2em;
+            color: #333333;
+            margin: 20px 0 10px 0;
+            font-weight: 600;
+        }
+        
+        .section p {
+            margin-bottom: 15px;
+            color: #333333;
+            font-size: 1.05em;
+        }
+        
+        .section ul, .section ol {
+            margin-left: 30px;
+            margin-bottom: 20px;
+        }
+        
+        .section li {
+            margin-bottom: 10px;
+            color: #333333;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border: 1.5px solid #E5E5E5;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .card-yellow {
+            background: rgba(255, 209, 0, 0.1);
+            border-color: #FFD100;
+        }
+        
+        .card-info {
+            background: rgba(0, 123, 255, 0.05);
+            border-color: #007BFF;
+        }
+        
+        .card-success {
+            background: rgba(40, 167, 69, 0.05);
+            border-color: #28A745;
+        }
+        
+        code {
+            background: #F5F5F5;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+            color: #D63384;
+            border: 1px solid #E5E5E5;
+        }
+        
+        pre {
+            background: #1E1E1E;
+            color: #D4D4D4;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 20px 0;
+            border: 2px solid #FFD100;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+        
+        pre code {
+            background: transparent;
+            border: none;
+            padding: 0;
+            color: inherit;
+        }
+        
+        .highlight {
+            background: #FFD100;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: 600;
+            color: #000000;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #FFFFFF;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        table th {
+            background: #000000;
+            color: #FFD100;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #E5E5E5;
+        }
+        
+        table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        table tr:hover {
+            background: rgba(255, 209, 0, 0.05);
+        }
+        
+        .collapsible {
+            background: #FFFFFF;
+            cursor: pointer;
+            padding: 18px;
+            border: 2px solid #FFD100;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #000000;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .collapsible:hover {
+            background: rgba(255, 209, 0, 0.1);
+        }
+        
+        .collapsible.active {
+            background: #FFD100;
+        }
+        
+        .collapsible::after {
+            content: '▼';
+            font-size: 0.8em;
+            transition: transform 0.3s ease;
+        }
+        
+        .collapsible.active::after {
+            transform: rotate(180deg);
+        }
+        
+        .content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background: #FFFFFF;
+            border: 1px solid #E5E5E5;
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+            margin-top: -10px;
+            margin-bottom: 20px;
+        }
+        
+        .content.active {
+            max-height: 5000px;
+            padding: 20px;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-right: 8px;
+        }
+        
+        .badge-required {
+            background: #DC3545;
+            color: #FFFFFF;
+        }
+        
+        .badge-optional {
+            background: #6C757D;
+            color: #FFFFFF;
+        }
+        
+        .badge-new {
+            background: #28A745;
+            color: #FFFFFF;
+        }
+        
+        .architecture-diagram {
+            background: #FFFFFF;
+            border: 2px solid #FFD100;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            font-family: 'Courier New', monospace;
+            margin: 30px 0;
+            white-space: pre;
+            overflow-x: auto;
+            line-height: 1.8;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .nav-buttons {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>👨‍💻 Developer Guide</h1>
+            <p class="subtitle">APS Workshop - Technical Architecture & Implementation</p>
+        </div>
+        
+        <div class="nav-buttons">
+            <a href="/" class="btn btn-primary">🏠 Back to Swagger</a>
+            <a href="/help.html" class="btn btn-secondary">📖 User Manual</a>
+        </div>
+
+        <!-- Quick Overview -->
+        <div class="section">
+            <h2>🎯 Quick Overview</h2>
+            <div class="card card-yellow">
+                <p><strong>This workshop application demonstrates:</strong></p>
+                <ul>
+                    <li>✅ <strong>.NET 9 Web API</strong> with clean architecture patterns</li>
+                    <li>✅ <strong>Autodesk SSO</strong> authentication with OAuth 2.0</li>
+                    <li>✅ <strong>Interactive Swagger UI</strong> powered by Swashbuckle</li>
+                    <li>✅ <strong>APS Data Management & ACC APIs</strong> integration</li>
+                    <li>✅ <strong>Custom Middleware</strong> for authentication flow</li>
+                    <li>✅ <strong>Session Management</strong> for secure token storage</li>
+                    <li>✅ <strong>Professional UI/UX</strong> with Autodesk branding</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Technologies & Frameworks -->
+        <div class="section">
+            <h2>🛠️ Technologies & Frameworks</h2>
+            
+            <p>This workshop application is built with modern, production-ready technologies. Here's what makes it all work:</p>
+            
+            <button class="collapsible">Backend Technologies (.NET 9, ASP.NET Core, C#)</button>
+            <div class="content">
+                <div class="card">
+                    <h4>.NET 9 🟣</h4>
+                    <p><strong>What it is:</strong> Microsoft's latest cross-platform framework for building modern applications.</p>
+                    <p><strong>Why we use it:</strong></p>
+                    <ul>
+                        <li>✅ <strong>Cross-platform</strong> - Runs on Windows, Mac, and Linux</li>
+                        <li>✅ <strong>High performance</strong> - One of the fastest web frameworks available</li>
+                        <li>✅ <strong>Modern C#</strong> - Latest language features and improvements</li>
+                        <li>✅ <strong>Built-in features</strong> - Dependency injection, configuration, logging</li>
+                        <li>✅ <strong>Azure-optimized</strong> - Seamless deployment to Azure App Service</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h4>ASP.NET Core Web API 🌐</h4>
+                    <p><strong>What it is:</strong> Framework for building RESTful HTTP services.</p>
+                    <p><strong>What it handles:</strong></p>
+                    <ul>
+                        <li>HTTP routing (<code>/hubs</code>, <code>/projects</code>, <code>/auth/callback</code>)</li>
+                        <li>Request/Response serialization (JSON)</li>
+                        <li>Middleware pipeline (authentication, security headers)</li>
+                        <li>Dependency Injection container</li>
+                        <li>Model binding and validation</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <button class="collapsible">API Documentation (Swashbuckle 9.0.6) - The Star of the Show! ⭐</button>
+            <div class="content">
+                <div class="card card-yellow">
+                    <h4>Swashbuckle.AspNetCore 9.0.6 📚</h4>
+                    <p><strong>This is THE MOST IMPORTANT package in this workshop!</strong></p>
+                    <p>Without Swashbuckle, there would be no Swagger UI, no interactive API testing, and this workshop wouldn't exist.</p>
+                </div>
+                
+                <div class="card">
+                    <h4>What Swashbuckle Does:</h4>
+                    <ol>
+                        <li><strong>Auto-generates API documentation</strong> - Scans all controllers and creates OpenAPI specification</li>
+                        <li><strong>Serves interactive Swagger UI</strong> - The beautiful web interface you're using right now!</li>
+                        <li><strong>Enables customization</strong> - Custom operation IDs, tags, enums, XML comments, branding</li>
+                    </ol>
+                    
+                    <h4>Key Features:</h4>
+                    <ul>
+                        <li>✅ "Try it out" buttons for every endpoint</li>
+                        <li>✅ Parameter input fields with validation</li>
+                        <li>✅ Response viewers with JSON formatting</li>
+                        <li>✅ OpenAPI 3.0 compliant specification</li>
+                        <li>✅ Custom HTML/CSS injection for branding</li>
+                        <li>✅ XML documentation comments display</li>
+                    </ul>
+                    
+                    <h4>Configuration:</h4>
+                    <pre><code>// In Program.cs
+builder.Services.AddSwaggerGen(c =>
+{
+    // Custom operation IDs for cleaner display
+    c.CustomOperationIds(apiDesc => ...);
+    
+    // Show enum names instead of numbers
+    c.UseInlineDefinitionsForEnums();
+    
+    // Include XML comments
+    c.IncludeXmlComments(xmlPath);
+});</code></pre>
+                </div>
+            </div>
+            
+            <button class="collapsible">HTTP & JSON Libraries (HttpClient, Newtonsoft.Json, RestSharp)</button>
+            <div class="content">
+                <div class="card">
+                    <h4>System.Net.Http.HttpClient 🔗</h4>
+                    <p><strong>What it is:</strong> .NET's built-in HTTP client for making web requests.</p>
+                    <p><strong>What we use it for:</strong></p>
+                    <ul>
+                        <li>Making HTTP calls to APS APIs (<code>developer.api.autodesk.com</code>)</li>
+                        <li>Setting authorization headers (Bearer tokens)</li>
+                        <li>Handling responses and errors</li>
+                    </ul>
+                    <p><strong>Key features:</strong> Connection pooling, automatic decompression, timeout configuration, typed clients via DI</p>
+                </div>
+                
+                <div class="card">
+                    <h4>Newtonsoft.Json 13.0.4 📦</h4>
+                    <p><strong>What it is:</strong> High-performance JSON framework (also known as JSON.NET).</p>
+                    <p><strong>What it does:</strong></p>
+                    <ul>
+                        <li>Parses APS API JSON responses</li>
+                        <li>Serializes request bodies for POST/PUT operations</li>
+                        <li>Provides dependency for Swashbuckle 9.0.6</li>
+                        <li>Industry standard - most widely used .NET JSON library</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h4>RestSharp 112.1.0 🚀</h4>
+                    <p><strong>What it is:</strong> Simple REST and HTTP API client library.</p>
+                    <p><strong>Why we include it:</strong></p>
+                    <ul>
+                        <li>Provides dependency for Swashbuckle 9.0.6 (<code>Microsoft.Extensions.ApiDescription.Server 9.0.0</code>)</li>
+                        <li>Simplifies REST API calls with fluent syntax</li>
+                        <li>Automatic JSON serialization</li>
+                        <li>Strongly-typed request/response models</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <button class="collapsible">Authentication & Security (OAuth 2.0, Session Management, Security Headers)</button>
+            <div class="content">
+                <div class="card">
+                    <h4>OAuth 2.0 🔐</h4>
+                    <p><strong>What it is:</strong> Industry-standard protocol for authorization.</p>
+                    <p><strong>What we implement:</strong></p>
+                    <ul>
+                        <li>✅ <strong>2-Legged (Client Credentials)</strong> - App-only access token</li>
+                        <li>✅ <strong>3-Legged (Authorization Code Flow)</strong> - User authentication with Autodesk SSO</li>
+                        <li>✅ <strong>Refresh tokens</strong> - Automatic token renewal</li>
+                        <li>✅ <strong>Scopes</strong> - Permission-based access (<code>data:read</code>, <code>data:write</code>, <code>account:read</code>)</li>
+                    </ul>
+                    
+                    <h4>Authentication Flow:</h4>
+                    <pre><code>1. User clicks "Login with Autodesk"
+2. Redirect to Autodesk login page
+3. User authenticates
+4. Autodesk returns authorization code
+5. Exchange code for access token
+6. Store token in session
+7. Use token for all API calls</code></pre>
+                </div>
+                
+                <div class="card">
+                    <h4>Session Management 🗃️</h4>
+                    <p><strong>What it is:</strong> Server-side storage for user data.</p>
+                    <p><strong>What we store:</strong></p>
+                    <ul>
+                        <li>APS access token</li>
+                        <li>APS refresh token</li>
+                        <li>User name</li>
+                        <li>User email</li>
+                        <li>User profile picture URL</li>
+                    </ul>
+                    <p><strong>Security benefits:</strong></p>
+                    <ul>
+                        <li>✅ <strong>Server-side storage</strong> - Tokens never exposed to client JavaScript</li>
+                        <li>✅ <strong>HttpOnly cookies</strong> - Protection against XSS attacks</li>
+                        <li>✅ <strong>Automatic expiration</strong> - 60-minute timeout</li>
+                        <li>✅ <strong>Secure by default</strong> - ASP.NET Core handles encryption</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h4>Custom Middleware 🛡️</h4>
+                    <p><strong>APSAuthenticationMiddleware</strong> - Enforces authentication on all protected routes</p>
+                    <p><strong>SecurityHeadersMiddleware</strong> - Adds 6 essential HTTP security headers:</p>
+                    <ol>
+                        <li><strong>HSTS</strong> - Force HTTPS connections (production only)</li>
+                        <li><strong>CSP</strong> - Content Security Policy (prevent XSS attacks)</li>
+                        <li><strong>X-Frame-Options</strong> - Prevent clickjacking</li>
+                        <li><strong>X-Content-Type-Options</strong> - Prevent MIME sniffing</li>
+                        <li><strong>Referrer-Policy</strong> - Control referrer information</li>
+                        <li><strong>Permissions-Policy</strong> - Disable unnecessary browser features</li>
+                    </ol>
+                </div>
+            </div>
+            
+            <button class="collapsible">Frontend Technologies (HTML, CSS, JavaScript)</button>
+            <div class="content">
+                <div class="card">
+                    <h4>HTML5 + CSS3 + JavaScript 🎨</h4>
+                    <p><strong>What we built:</strong></p>
+                    <ul>
+                        <li><code>login.html</code> - Autodesk SSO login page</li>
+                        <li><code>help.html</code> - User manual with step-by-step guides</li>
+                        <li><code>about.html</code> - Developer guide (this page!)</li>
+                        <li>Custom Swagger UI branding (injected via <code>c.HeadContent</code>)</li>
+                    </ul>
+                    
+                    <h4>Features:</h4>
+                    <ul>
+                        <li>✅ Responsive design (mobile-friendly)</li>
+                        <li>✅ Autodesk brand colors (Yellow #FFD100, Black #000000)</li>
+                        <li>✅ Collapsible sections</li>
+                        <li>✅ Code syntax highlighting</li>
+                        <li>✅ User profile display in Swagger UI banner</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <button class="collapsible">Deployment & DevOps (Azure, Azure CLI, Automation Scripts)</button>
+            <div class="content">
+                <div class="card">
+                    <h4>Azure App Service ☁️</h4>
+                    <p><strong>What it is:</strong> Microsoft's platform-as-a-service (PaaS) for hosting web applications.</p>
+                    <p><strong>Why we use it:</strong></p>
+                    <ul>
+                        <li>✅ <strong>Easy deployment</strong> - Single command deployment with <code>az webapp deploy</code></li>
+                        <li>✅ <strong>Auto-scaling</strong> - Handles traffic spikes automatically</li>
+                        <li>✅ <strong>HTTPS by default</strong> - Free SSL certificates</li>
+                        <li>✅ <strong>Environment variables</strong> - Secure credential management</li>
+                        <li>✅ <strong>Continuous deployment</strong> - GitHub/Azure DevOps integration</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h4>Deployment Tools 🔧</h4>
+                    <p><strong>Azure CLI</strong> - Command-line tool for managing Azure resources</p>
+                    <ul>
+                        <li><code>az login</code> - Authenticate with Azure</li>
+                        <li><code>az webapp deploy</code> - Deploy application</li>
+                        <li><code>az webapp config appsettings set</code> - Configure environment variables</li>
+                    </ul>
+                    
+                    <p><strong>Automation Scripts:</strong></p>
+                    <ul>
+                        <li><code>Tools/deploy.sh</code> - Automated deployment script (beginner-friendly)</li>
+                        <li><code>Tools/deep-clean.sh</code> - GitHub-ready cleanup script</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <button class="collapsible">Autodesk Platform Services (APS) APIs</button>
+            <div class="content">
+                <div class="card">
+                    <h4>Data Management API 📁</h4>
+                    <p><strong>What it provides:</strong></p>
+                    <ul>
+                        <li>Get hubs (BIM 360/ACC accounts)</li>
+                        <li>List projects</li>
+                        <li>Browse folders and files</li>
+                        <li>Create folders</li>
+                        <li>Upload/download files</li>
+                    </ul>
+                    
+                    <p><strong>Endpoints we use:</strong></p>
+                    <ul>
+                        <li><code>GET /project/v1/hubs</code></li>
+                        <li><code>GET /project/v1/hubs/{hub_id}/projects</code></li>
+                        <li><code>GET /data/v1/projects/{project_id}/folders/{folder_urn}/contents</code></li>
+                        <li><code>POST /data/v1/projects/{project_id}/folders</code></li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h4>ACC API (Account Admin) 👥</h4>
+                    <p><strong>What it provides:</strong></p>
+                    <ul>
+                        <li>List companies</li>
+                        <li>Get account users</li>
+                        <li>Retrieve project users</li>
+                        <li>Manage industry roles</li>
+                        <li>Set permissions</li>
+                    </ul>
+                    
+                    <p><strong>Endpoints we use:</strong></p>
+                    <ul>
+                        <li><code>GET /hq/v1/accounts/{account_id}/companies</code></li>
+                        <li><code>GET /hq/v1/accounts/{account_id}/users</code></li>
+                        <li><code>GET /hq/v1/accounts/{account_id}/projects/{project_id}/users</code></li>
+                        <li><code>GET /construction/admin/v1/accounts/{account_id}/industry-roles</code></li>
+                        <li><code>GET /bim360/admin/v1/projects/{project_id}/folders/{folder_id}/permissions</code></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <button class="collapsible">Package Management (NuGet)</button>
+            <div class="content">
+                <div class="card">
+                    <h4>NuGet 📦</h4>
+                    <p><strong>What it is:</strong> .NET's package manager (like npm for Node.js).</p>
+                    
+                    <p><strong>Commands we use:</strong></p>
+                    <ul>
+                        <li><code>dotnet restore</code> - Downloads all dependencies</li>
+                        <li><code>dotnet build</code> - Compiles project and packages</li>
+                        <li><code>.csproj</code> file - Defines package versions</li>
+                    </ul>
+                    
+                    <p><strong>Our packages:</strong></p>
+                    <pre><code>&lt;PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.6" /&gt;
+&lt;PackageReference Include="Newtonsoft.Json" Version="13.0.4" /&gt;
+&lt;PackageReference Include="RestSharp" Version="112.1.0" /&gt;</code></pre>
+                </div>
+            </div>
+            
+            <button class="collapsible">Why REST API Instead of Autodesk SDKs?</button>
+            <div class="content">
+                <div class="card card-info">
+                    <p>Autodesk provides official SDKs for various languages (<a href="https://www.nuget.org/profiles/AutodeskPlatformServices.SDK" target="_blank">NuGet Profile</a>), but we deliberately chose to use the <strong>REST API approach</strong> for this workshop.</p>
+                    
+                    <h4>✅ Benefits of REST API Approach:</h4>
+                    <ul>
+                        <li><strong>Educational value</strong> - Learn how HTTP APIs work under the hood</li>
+                        <li><strong>Universal knowledge</strong> - REST API skills transfer to ANY API (not just APS)</li>
+                        <li><strong>Minimal dependencies</strong> - Only Swashbuckle, no APS-specific packages</li>
+                        <li><strong>Transparency</strong> - See exactly what requests are being made</li>
+                        <li><strong>Flexibility</strong> - Easy to customize and extend</li>
+                        <li><strong>Cross-language</strong> - Same concepts apply to Python, Java, JavaScript, etc.</li>
+                    </ul>
+                    
+                    <h4>✅ When to Use Autodesk SDKs:</h4>
+                    <ul>
+                        <li><strong>Production applications</strong> - Strongly-typed models and error handling</li>
+                        <li><strong>Complex integrations</strong> - Multi-API workflows</li>
+                        <li><strong>Type safety</strong> - IntelliSense and compile-time checking</li>
+                        <li><strong>Reduced boilerplate</strong> - Less code for common operations</li>
+                    </ul>
+                    
+                    <h4>📦 Available Autodesk SDKs:</h4>
+                    <ul>
+                        <li><code>Autodesk.DataManagement</code> - Hubs, projects, folders, files</li>
+                        <li><code>Autodesk.Authentication</code> - OAuth 2.0 flows</li>
+                        <li><code>Autodesk.ACC.AccountAdmin</code> - Companies, users, roles</li>
+                        <li><code>Autodesk.ModelDerivative</code> - 3D model conversion and viewing</li>
+                    </ul>
+                    
+                    <div class="card card-yellow">
+                        <p><strong>For learning and workshops → Use REST API (this project)</strong></p>
+                        <p><strong>For production applications → Consider Autodesk SDKs</strong></p>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="collapsible">Architecture Pattern: Clean Separation of Concerns</button>
+            <div class="content">
+                <div class="architecture-diagram">
+┌─────────────────────────────────────────────┐
+│             Browser (User)                  │
+└─────────────────────────────────────────────┘
+                    ↓
+┌─────────────────────────────────────────────┐
+│        Controllers (HTTP Handlers)          │
+│  • Validate input parameters                │
+│  • Call services                            │
+│  • Return HTTP responses                    │
+└─────────────────────────────────────────────┘
+                    ↓
+┌─────────────────────────────────────────────┐
+│      Services (Business Logic)              │
+│  • Make HTTP calls to APS APIs              │
+│  • Handle JSON serialization                │
+│  • Error handling                           │
+└─────────────────────────────────────────────┘
+                    ↓
+┌─────────────────────────────────────────────┐
+│         Autodesk APS APIs                   │
+│  • Data Management API                      │
+│  • ACC API                                  │
+│  • Authentication API                       │
+└─────────────────────────────────────────────┘
+                </div>
+                
+                <div class="card card-success">
+                    <h4>✅ Benefits:</h4>
+                    <ul>
+                        <li><strong>Testability</strong> - Each layer can be tested independently</li>
+                        <li><strong>Maintainability</strong> - Changes in one layer don't affect others</li>
+                        <li><strong>Reusability</strong> - Services can be used by multiple controllers</li>
+                        <li><strong>Clarity</strong> - Each file has a single, clear purpose</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Architecture -->
+        <div class="section">
+            <h2>🏗️ Architecture Overview</h2>
+            
+            <h3>📊 Request Flow Diagram</h3>
+            <div class="architecture-diagram">
+Browser Request
+    ↓
+┌─────────────────────────┐
+│   APSAuthMiddleware     │ ← Checks authentication
+│   (Session validation)  │
+└─────────────────────────┘
+    ↓
+┌─────────────────────────┐
+│   Swagger UI Endpoint   │ ← Serves interactive UI
+│   (SwaggerUIMiddleware) │
+└─────────────────────────┘
+    ↓
+┌─────────────────────────┐
+│     Controller          │ ← Handles HTTP requests
+│   (HubsController)      │ ← Validates parameters
+└─────────────────────────┘
+    ↓
+┌─────────────────────────┐
+│      Service            │ ← Business logic
+│   (HubsService)         │ ← Makes API calls
+└─────────────────────────┘
+    ↓
+┌─────────────────────────┐
+│   Autodesk APS API      │ ← External API
+│   (developer.api...)    │
+└─────────────────────────┘
+            </div>
+            
+            <h3>📁 Project Structure</h3>
+            <div class="card">
+                <h4>/Controllers - HTTP Request Handlers</h4>
+                <p>Controllers are the "front desk" of your API. They receive HTTP requests, validate input, call services, and return responses.</p>
+                <p><strong>Example:</strong> <code>HubsController.cs</code> handles <code>GET /hubs</code> requests</p>
+                
+                <h4>/Services - Business Logic Layer</h4>
+                <p>Services contain the actual logic for interacting with Autodesk APIs. They're reusable and testable.</p>
+                <p><strong>Example:</strong> <code>HubsService.cs</code> makes HTTP calls to <code>https://developer.api.autodesk.com/project/v1/hubs</code></p>
+                
+                <h4>/Middleware - Request Pipeline Interceptors</h4>
+                <p>Custom middleware intercepts requests before they reach controllers. Used for authentication, logging, etc.</p>
+                <p><strong>Example:</strong> <code>APSAuthenticationMiddleware.cs</code> enforces SSO login</p>
+                
+                <h4>/Models - Data Structures</h4>
+                <p>C# classes that represent configuration, API responses, and DTOs (Data Transfer Objects).</p>
+                <p><strong>Example:</strong> <code>APSConfiguration.cs</code>, <code>TokenResponse.cs</code>, <code>UserProfile.cs</code></p>
+                
+                <h4>/wwwroot - Static Files</h4>
+                <p>HTML, CSS, JavaScript files served directly to the browser.</p>
+                <p><strong>Contains:</strong> <code>login.html</code>, <code>help.html</code>, <code>about.html</code></p>
+            </div>
+        </div>
+
+        <!-- Deep Dive: Controllers vs Services -->
+        <div class="section">
+            <h2>🎮 Controllers vs Services Pattern</h2>
+            
+            <button class="collapsible">Why Separate Controllers and Services?</button>
+            <div class="content">
+                <div class="card card-info">
+                    <h4>✅ Benefits of Separation:</h4>
+                    <ul>
+                        <li><strong>Separation of Concerns:</strong> Controllers handle HTTP, Services handle business logic</li>
+                        <li><strong>Reusability:</strong> Multiple controllers can use the same service</li>
+                        <li><strong>Testability:</strong> Services can be unit tested independently</li>
+                        <li><strong>Maintainability:</strong> Changes to API logic don't affect HTTP handling</li>
+                        <li><strong>Single Responsibility:</strong> Each class has one clear purpose</li>
+                    </ul>
+                </div>
+                
+                <h4>🔄 Example Flow:</h4>
+                <pre><code>1. User calls: GET /hubs?token=abc123
+2. HubsController.GetHubs(token) receives request
+3. Controller validates token parameter exists
+4. Controller calls: await _hubsService.GetHubsAsync(token)
+5. HubsService makes HTTP request to APS API
+6. HubsService deserializes JSON response
+7. HubsService returns data to controller
+8. Controller returns: return Ok(data)
+9. User receives HTTP 200 with JSON data</code></pre>
+                
+                <h4>💻 Code Example:</h4>
+                <pre><code>// ❌ BAD: Controller doing everything
+[HttpGet("hubs")]
+public async Task&lt;IActionResult&gt; GetHubs(string token)
+{
+    var client = new HttpClient();
+    client.DefaultRequestHeaders.Authorization = 
+        new AuthenticationHeaderValue("Bearer", token);
+    var response = await client.GetAsync("https://...");
+    var json = await response.Content.ReadAsStringAsync();
+    return Ok(json);
+}
+
+// ✅ GOOD: Separation of concerns
+[HttpGet("hubs")]
+public async Task&lt;IActionResult&gt; GetHubs(string token)
+{
+    var hubs = await _hubsService.GetHubsAsync(token);
+    return Ok(hubs);
+}</code></pre>
+            </div>
+            
+            <button class="collapsible">Dependency Injection (DI) Explained</button>
+            <div class="content">
+                <div class="card card-success">
+                    <p><strong>Dependency Injection</strong> is how controllers get access to services.</p>
+                    
+                    <h4>📝 Registration (Program.cs):</h4>
+                    <pre><code>// Register services in the DI container
+builder.Services.AddHttpClient&lt;HubsService&gt;();
+builder.Services.AddHttpClient&lt;ProjectsService&gt;();
+builder.Services.AddHttpClient&lt;AuthenticationService&gt;();</code></pre>
+                    
+                    <h4>💉 Injection (Controller):</h4>
+                    <pre><code>public class HubsController : ControllerBase
+{
+    private readonly HubsService _hubsService;
+    
+    // Constructor injection
+    public HubsController(HubsService hubsService)
+    {
+        _hubsService = hubsService;
+    }
+    
+    [HttpGet("hubs")]
+    public async Task&lt;IActionResult&gt; GetHubs(string token)
+    {
+        var hubs = await _hubsService.GetHubsAsync(token);
+        return Ok(hubs);
+    }
+}</code></pre>
+                    
+                    <h4>✅ Benefits:</h4>
+                    <ul>
+                        <li><strong>Automatic lifecycle management:</strong> Framework creates and disposes instances</li>
+                        <li><strong>Testability:</strong> Easy to mock services for unit tests</li>
+                        <li><strong>Loose coupling:</strong> Controllers don't create service instances directly</li>
+                        <li><strong>Configuration:</strong> Services can be configured centrally</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Swashbuckle Deep Dive -->
+        <div class="section">
+            <h2>🎨 Swashbuckle.AspNetCore - The Magic Behind Swagger UI</h2>
+            
+            <div class="card card-yellow">
+                <p><strong>Swashbuckle is THE MOST IMPORTANT package in this workshop!</strong></p>
+                <p>Without it, there would be no Swagger UI, no interactive API testing, and this workshop wouldn't exist.</p>
+            </div>
+            
+            <button class="collapsible">What Does Swashbuckle Do?</button>
+            <div class="content">
+                <h4>🔧 Three Main Functions:</h4>
+                
+                <div class="card">
+                    <h4>1️⃣ Auto-Generates OpenAPI Specification</h4>
+                    <p>Scans your controllers and creates a JSON document (<code>/swagger/v1/swagger.json</code>) describing all endpoints.</p>
+                    <pre><code>{
+  "openapi": "3.0.1",
+  "info": { "title": "APS Starter Pack Workshop", "version": "v1" },
+  "paths": {
+    "/hubs": {
+      "get": {
+        "summary": "Get all hubs",
+        "parameters": [...]
+      }
+    }
+  }
+}</code></pre>
+                </div>
+                
+                <div class="card">
+                    <h4>2️⃣ Serves Interactive Swagger UI</h4>
+                    <p>Provides the beautiful web interface at <code>http://localhost:8080</code></p>
+                    <ul>
+                        <li>Expandable API sections</li>
+                        <li>"Try it out" buttons</li>
+                        <li>Parameter input fields</li>
+                        <li>Response viewers with JSON formatting</li>
+                        <li>Schema definitions</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h4>3️⃣ Enables Customization</h4>
+                    <ul>
+                        <li><strong>Custom Operation IDs:</strong> "2LeggedToken" instead of "AuthenticationController_GetToken"</li>
+                        <li><strong>Tags:</strong> Group endpoints into sections</li>
+                        <li><strong>Enums:</strong> Dropdown selectors (US, EMEA)</li>
+                        <li><strong>XML Comments:</strong> Documentation from code comments</li>
+                        <li><strong>Custom HTML/CSS:</strong> Branding and user info display</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <button class="collapsible">How to Customize Swagger UI</button>
+            <div class="content">
+                <h4>📝 Configuration in Program.cs:</h4>
+                <pre><code>builder.Services.AddSwaggerGen(c =>
+{
+    // Custom operation IDs for cleaner display
+    c.CustomOperationIds(apiDesc =>
+    {
+        var action = apiDesc.ActionDescriptor as ControllerActionDescriptor;
+        return action?.MethodInfo.Name;
+    });
+    
+    // Show enum names (US, EMEA) instead of numbers (0, 1)
+    c.UseInlineDefinitionsForEnums();
+    
+    // Document metadata
+    c.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "APS Starter Pack Workshop",
+        Version = "v1"
+    });
+});
+
+// Configure Swagger UI
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "APS Starter Pack Workshop APIs v1");
+    c.RoutePrefix = string.Empty; // Serve at root URL
+    
+    // Inject custom HTML/CSS/JavaScript
+    c.HeadContent = @"
+        &lt;style&gt;
+            /* Custom banner styling */
+        &lt;/style&gt;
+        &lt;script&gt;
+            /* Custom JavaScript for user info */
+        &lt;/script&gt;
+    ";
+});</code></pre>
+                
+                <h4>🎯 XML Comments for Documentation:</h4>
+                <pre><code>/// &lt;summary&gt;
+/// Get all hubs (BIM 360/ACC accounts) the user has access to
+/// &lt;/summary&gt;
+/// &lt;param name="token"&gt;APS access token with data:read scope&lt;/param&gt;
+/// &lt;returns&gt;List of hubs with IDs and names&lt;/returns&gt;
+/// &lt;remarks&gt;
+/// Requires a valid 2-legged or 3-legged token.
+/// Hub IDs include "b." prefix (e.g., b.3def0ac0...)
+/// &lt;/remarks&gt;
+[HttpGet("hubs")]
+public async Task&lt;IActionResult&gt; GetHubs(string token)
+{
+    // ...
+}</code></pre>
+                
+                <p>These comments appear in Swagger UI automatically!</p>
+            </div>
+            
+            <button class="collapsible">Why Version 7.0.0 and Not 8.x/9.x?</button>
+            <div class="content">
+                <div class="card card-info">
+                    <h4>🔍 Version Compatibility:</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Version</th>
+                                <th>Status</th>
+                                <th>Notes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>6.8.1</strong></td>
+                                <td>✅ Works</td>
+                                <td>Older but stable</td>
+                            </tr>
+                            <tr>
+                                <td><strong>7.0.0</strong></td>
+                                <td>✅ Recommended</td>
+                                <td>Newest stable, self-contained</td>
+                            </tr>
+                            <tr>
+                                <td><strong>8.0.0</strong></td>
+                                <td>❌ Broken</td>
+                                <td>Invalid OpenAPI version field</td>
+                            </tr>
+                            <tr>
+                                <td><strong>9.0.6</strong></td>
+                                <td>❌ Broken</td>
+                                <td>Conflicts with .NET 9 OpenAPI</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <h4>❌ Why 8.x/9.x Fail:</h4>
+                    <ul>
+                        <li>Breaking changes in OpenAPI document generation</li>
+                        <li>Missing or invalid <code>openapi</code> version field in swagger.json</li>
+                        <li>Conflicts with Microsoft.AspNetCore.OpenApi (both try to generate specs)</li>
+                        <li>Swagger UI cannot render the malformed specification</li>
+                    </ul>
+                    
+                    <h4>✅ Why 7.0.0 is Perfect:</h4>
+                    <ul>
+                        <li>Proven stable and battle-tested</li>
+                        <li>Fully compatible with .NET 9</li>
+                        <li>Self-contained (no Microsoft.AspNetCore.OpenApi needed)</li>
+                        <li>All features work: enums, custom IDs, branding</li>
+                        <li>Clean dependency tree</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Authentication & SSO -->
+        <div class="section">
+            <h2>🔐 Authentication & SSO Implementation</h2>
+            
+            <button class="collapsible">OAuth 2.0 Flow (3-Legged)</button>
+            <div class="content">
+                <h4>🔄 Complete Authentication Flow:</h4>
+                <pre><code>1. User visits http://localhost:8080
+   ↓
+2. APSAuthenticationMiddleware checks session for "APS_AccessToken"
+   ↓
+3. No token found → Redirect to /login.html
+   ↓
+4. User clicks "Login with Autodesk SSO"
+   ↓
+5. Browser redirects to /auth/login
+   ↓
+6. AuthenticationService.GetThreeLeggedAuthorizationUrl()
+   Generates: https://developer.api.autodesk.com/authentication/v2/authorize
+                ?response_type=code
+                &client_id=YOUR_CLIENT_ID
+                &redirect_uri=http://localhost:8080/auth/callback
+                &scope=data:read data:write ...
+   ↓
+7. User redirected to Autodesk login page
+   ↓
+8. User enters Autodesk credentials
+   ↓
+9. Autodesk redirects back: /auth/callback?code=AUTHORIZATION_CODE
+   ↓
+10. AuthenticationService.GetThreeLeggedTokenAsync(code)
+    POST https://developer.api.autodesk.com/authentication/v2/token
+    Body: { client_id, client_secret, code, redirect_uri, grant_type }
+   ↓
+11. Autodesk returns access_token + refresh_token
+   ↓
+12. UserInfoService.GetUserProfileAsync(access_token)
+    GET https://api.userprofile.autodesk.com/userinfo
+   ↓
+13. Store in session:
+    - APS_AccessToken
+    - APS_RefreshToken
+    - User_Name
+    - User_Email
+    - User_Picture
+   ↓
+14. Redirect to Swagger UI
+   ↓
+15. User sees authenticated interface with profile info</code></pre>
+                
+                <h4>🔑 Key Components:</h4>
+                <div class="card">
+                    <p><strong>AuthenticationService.cs:</strong> Handles OAuth token exchange</p>
+                    <p><strong>UserInfoService.cs:</strong> Fetches user profile from Autodesk</p>
+                    <p><strong>AuthenticationController.cs:</strong> Endpoints for login flow</p>
+                    <p><strong>APSAuthenticationMiddleware.cs:</strong> Protects routes</p>
+                </div>
+            </div>
+            
+            <button class="collapsible">Custom Middleware Implementation</button>
+            <div class="content">
+                <h4>📝 APSAuthenticationMiddleware.cs:</h4>
+                <pre><code>public class APSAuthenticationMiddleware
+{
+    private readonly RequestDelegate _next;
+    
+    public APSAuthenticationMiddleware(RequestDelegate next)
+    {
+        _next = next;
+    }
+    
+    public async Task InvokeAsync(HttpContext context)
+    {
+        var path = context.Request.Path;
+        
+        // Allow public routes
+        if (path.StartsWithSegments("/login.html") ||
+            path.StartsWithSegments("/auth/") ||
+            path.StartsWithSegments("/swagger") ||
+            path.StartsWithSegments("/css") ||
+            path.StartsWithSegments("/js"))
+        {
+            await _next(context);
+            return;
+        }
+        
+        // Protect Swagger UI and help pages
+        if (path == "/" || path.StartsWithSegments("/help.html") || 
+            path.StartsWithSegments("/about.html"))
+        {
+            var accessToken = context.Session.GetString("APS_AccessToken");
+            if (string.IsNullOrEmpty(accessToken))
+            {
+                context.Response.Redirect("/login.html");
+                return;
+            }
+        }
+        
+        await _next(context);
+    }
+}</code></pre>
+                
+                <h4>📌 Registration in Program.cs:</h4>
+                <pre><code>// MUST be in correct order!
+app.UseSession();  // Enable session management
+app.UseMiddleware&lt;APSAuthenticationMiddleware&gt;();  // Custom auth
+app.UseSwaggerUI();  // Swagger UI (protected by middleware)</code></pre>
+                
+                <div class="card card-yellow">
+                    <p><strong>⚠️ Order Matters!</strong></p>
+                    <p>Middleware executes in the order it's registered. Session must be enabled before our custom middleware can read from it.</p>
+                </div>
+            </div>
+            
+            <button class="collapsible">Session Management</button>
+            <div class="content">
+                <h4>🗃️ Session Configuration:</h4>
+                <pre><code>builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(60);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});</code></pre>
+                
+                <h4>💾 Storing Data in Session:</h4>
+                <pre><code>// Store string
+HttpContext.Session.SetString("APS_AccessToken", token.AccessToken);
+HttpContext.Session.SetString("User_Name", userProfile.Name);
+
+// Retrieve string
+var token = HttpContext.Session.GetString("APS_AccessToken");
+var name = HttpContext.Session.GetString("User_Name");</code></pre>
+                
+                <h4>✅ Security Benefits:</h4>
+                <ul>
+                    <li><strong>Server-side storage:</strong> Tokens never exposed to client JavaScript</li>
+                    <li><strong>HttpOnly cookies:</strong> Protected from XSS attacks</li>
+                    <li><strong>Automatic expiration:</strong> 60-minute timeout</li>
+                    <li><strong>Secure by default:</strong> ASP.NET Core handles encryption</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Adding New Endpoints -->
+        <div class="section">
+            <h2>➕ How to Add New Endpoints</h2>
+            
+            <button class="collapsible">Step-by-Step Guide</button>
+            <div class="content">
+                <h4>Example: Add "Get User's Projects" Endpoint</h4>
+                
+                <div class="card">
+                    <h4>Step 1: Create the Service Method</h4>
+                    <p><code>Services/ProjectsService.cs</code></p>
+                    <pre><code>public async Task&lt;string&gt; GetUserProjectsAsync(string token, string userId)
+{
+    _httpClient.DefaultRequestHeaders.Authorization = 
+        new AuthenticationHeaderValue("Bearer", token);
+    
+    var url = $"{_config.BaseUrl}/hq/v1/accounts/{accountId}/users/{userId}/projects";
+    var response = await _httpClient.GetAsync(url);
+    response.EnsureSuccessStatusCode();
+    
+    return await response.Content.ReadAsStringAsync();
+}</code></pre>
+                </div>
+                
+                <div class="card">
+                    <h4>Step 2: Add Controller Endpoint</h4>
+                    <p><code>Controllers/ProjectsController.cs</code></p>
+                    <pre><code>/// &lt;summary&gt;
+/// Get all projects a specific user has access to
+/// &lt;/summary&gt;
+/// &lt;param name="token"&gt;APS access token&lt;/param&gt;
+/// &lt;param name="userId"&gt;User ID (GUID)&lt;/param&gt;
+[HttpGet("users/{userId}/projects")]
+[Tags("3. Projects")]
+public async Task&lt;IActionResult&gt; GetUserProjects(
+    [FromQuery] string token,
+    [FromRoute] string userId)
+{
+    if (string.IsNullOrEmpty(token))
+        return BadRequest(new { error = "Token is required" });
+    
+    if (string.IsNullOrEmpty(userId))
+        return BadRequest(new { error = "User ID is required" });
+    
+    try
+    {
+        var projects = await _projectsService.GetUserProjectsAsync(token, userId);
+        return Ok(projects);
+    }
+    catch (HttpRequestException ex)
+    {
+        return StatusCode(500, new { error = ex.Message });
+    }
+}</code></pre>
+                </div>
+                
+                <div class="card">
+                    <h4>Step 3: Test in Swagger UI</h4>
+                    <ol>
+                        <li>Build and run the app: <code>dotnet run</code></li>
+                        <li>Open browser: <code>http://localhost:8080</code></li>
+                        <li>Navigate to "3. Projects" section</li>
+                        <li>Find your new endpoint: <code>GET /users/{userId}/projects</code></li>
+                        <li>Click "Try it out"</li>
+                        <li>Enter token and userId</li>
+                        <li>Click "Execute"</li>
+                    </ol>
+                </div>
+                
+                <div class="card card-success">
+                    <h4>✅ That's it! Your new endpoint is live!</h4>
+                    <p>Swashbuckle automatically discovered it and added it to Swagger UI.</p>
+                </div>
+            </div>
+            
+            <button class="collapsible">Best Practices for New Endpoints</button>
+            <div class="content">
+                <h4>📝 Documentation:</h4>
+                <ul>
+                    <li>Always add <code>/// &lt;summary&gt;</code> comments</li>
+                    <li>Describe what parameters are required</li>
+                    <li>Mention required scopes</li>
+                    <li>Add <code>&lt;remarks&gt;</code> for important notes</li>
+                </ul>
+                
+                <h4>✅ Validation:</h4>
+                <ul>
+                    <li>Check for required parameters</li>
+                    <li>Validate format (e.g., "b." prefix for hub IDs)</li>
+                    <li>Return clear error messages</li>
+                    <li>Use appropriate HTTP status codes</li>
+                </ul>
+                
+                <h4>🏷️ Tagging:</h4>
+                <ul>
+                    <li>Use <code>[Tags("Section Name")]</code> to group endpoints</li>
+                    <li>Keep related endpoints in the same tag</li>
+                    <li>Number tags for logical ordering (1. Auth, 2. Hubs, 3. Projects)</li>
+                </ul>
+                
+                <h4>⚠️ Error Handling:</h4>
+                <pre><code>try
+{
+    var data = await _service.GetDataAsync(token);
+    return Ok(data);
+}
+catch (HttpRequestException ex)
+{
+    // Log the error
+    _logger.LogError(ex, "Failed to get data");
+    
+    // Return user-friendly message
+    return StatusCode(500, new { 
+        error = "Failed to retrieve data from APS",
+        details = ex.Message 
+    });
+}</code></pre>
+            </div>
+        </div>
+
+        <!-- API Patterns -->
+        <div class="section">
+            <h2>📚 Common API Patterns</h2>
+            
+            <button class="collapsible">HTTP Client Configuration</button>
+            <div class="content">
+                <pre><code>// Register typed HttpClient
+builder.Services.AddHttpClient&lt;HubsService&gt;();
+
+// In service constructor
+public class HubsService
+{
+    private readonly HttpClient _httpClient;
+    private readonly APSConfiguration _config;
+    
+    public HubsService(HttpClient httpClient, IOptions&lt;APSConfiguration&gt; config)
+    {
+        _httpClient = httpClient;
+        _config = config.Value;
+    }
+    
+    public async Task&lt;string&gt; GetHubsAsync(string token)
+    {
+        _httpClient.DefaultRequestHeaders.Authorization = 
+            new AuthenticationHeaderValue("Bearer", token);
+        
+        var response = await _httpClient.GetAsync($"{_config.BaseUrl}/project/v1/hubs");
+        response.EnsureSuccessStatusCode();
+        
+        return await response.Content.ReadAsStringAsync();
+    }
+}</code></pre>
+            </div>
+            
+            <button class="collapsible">Parameter Validation</button>
+            <div class="content">
+                <pre><code>[HttpGet("hubs/{hubId}")]
+public async Task&lt;IActionResult&gt; GetHub(
+    [FromQuery] string token,
+    [FromRoute] string hubId)
+{
+    // Check required parameters
+    if (string.IsNullOrEmpty(token))
+        return BadRequest(new { error = "Token is required" });
+    
+    // Validate format
+    if (!hubId.StartsWith("b."))
+    {
+        return BadRequest(new { 
+            error = "Invalid hubId format",
+            message = "Hub ID must start with 'b.' prefix",
+            example = "b.3def0ac0-6276-4c72-89ec-81948b43496f",
+            provided = hubId,
+            fix = $"Try: b.{hubId}"
+        });
+    }
+    
+    // Call service
+    try
+    {
+        var hub = await _hubsService.GetHubAsync(token, hubId);
+        return Ok(hub);
+    }
+    catch (HttpRequestException ex)
+    {
+        return StatusCode(500, new { error = ex.Message });
+    }
+}</code></pre>
+            </div>
+            
+            <button class="collapsible">URL Encoding for Special Characters</button>
+            <div class="content">
+                <pre><code>// Folder URNs contain special characters like colons
+// Example: urn:adsk.wipprod:fs.folder:co.xxxxx
+// MUST be URL-encoded before making HTTP requests
+
+public async Task&lt;string&gt; GetFolderContentsAsync(string token, string projectId, string folderUrn)
+{
+    // Encode the folderUrn
+    var encodedUrn = Uri.EscapeDataString(folderUrn);
+    
+    var url = $"{_config.BaseUrl}/data/v1/projects/{projectId}/folders/{encodedUrn}/contents";
+    
+    _httpClient.DefaultRequestHeaders.Authorization = 
+        new AuthenticationHeaderValue("Bearer", token);
+    
+    var response = await _httpClient.GetAsync(url);
+    response.EnsureSuccessStatusCode();
+    
+    return await response.Content.ReadAsStringAsync();
+}</code></pre>
+            </div>
+        </div>
+
+        <!-- Scopes & Permissions -->
+        <div class="section">
+            <h2>🔑 APS Scopes & Permissions</h2>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Scope</th>
+                        <th>Access Level</th>
+                        <th>Required For</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>data:read</code></td>
+                        <td>Read</td>
+                        <td>Hubs, Projects, Folders, Files</td>
+                    </tr>
+                    <tr>
+                        <td><code>data:write</code></td>
+                        <td>Modify</td>
+                        <td>Update files, folder properties</td>
+                    </tr>
+                    <tr>
+                        <td><code>data:create</code></td>
+                        <td>Create</td>
+                        <td>Create folders, upload files</td>
+                    </tr>
+                    <tr>
+                        <td><code>data:search</code></td>
+                        <td>Search</td>
+                        <td>Search within folders and projects</td>
+                    </tr>
+                    <tr>
+                        <td><code>account:read</code></td>
+                        <td>Read</td>
+                        <td>Companies, Users, Roles, Account info</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="card card-yellow">
+                <h4>⚠️ Important Notes:</h4>
+                <ul>
+                    <li>Tokens include scopes when generated - they can't be added later</li>
+                    <li>If you need a new scope, generate a new token</li>
+                    <li>2-legged tokens vs 3-legged tokens have different scope access</li>
+                    <li>Some endpoints require specific scopes - check the error message!</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Debugging Tips -->
+        <div class="section">
+            <h2>🐛 Debugging & Troubleshooting</h2>
+            
+            <button class="collapsible">Common Issues & Solutions</button>
+            <div class="content">
+                <div class="card">
+                    <h4>❌ "Unauthorized" (401)</h4>
+                    <p><strong>Causes:</strong></p>
+                    <ul>
+                        <li>Invalid or expired token</li>
+                        <li>Wrong ClientId/ClientSecret in appsettings.json</li>
+                    </ul>
+                    <p><strong>Solution:</strong></p>
+                    <ul>
+                        <li>Generate a fresh token</li>
+                        <li>Verify credentials in APS Portal</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h4>❌ "Forbidden" (403)</h4>
+                    <p><strong>Causes:</strong></p>
+                    <ul>
+                        <li>Missing API enablement in APS Portal</li>
+                        <li>Missing required scope in token</li>
+                    </ul>
+                    <p><strong>Solution:</strong></p>
+                    <ul>
+                        <li>Enable "Data Management API", "BIM 360 API", "ACC API" in portal</li>
+                        <li>Generate new token with all scopes</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h4>❌ "Bad Request" (400)</h4>
+                    <p><strong>Causes:</strong></p>
+                    <ul>
+                        <li>Missing "b." prefix on hubId/projectId</li>
+                        <li>Invalid parameter format</li>
+                        <li>Unencoded special characters in URN</li>
+                    </ul>
+                    <p><strong>Solution:</strong></p>
+                    <ul>
+                        <li>Check parameter format in error message</li>
+                        <li>Ensure URL encoding for URNs</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <button class="collapsible">Logging & Diagnostics</button>
+            <div class="content">
+                <pre><code>// Enable detailed logging in Program.cs
+builder.Logging.AddConsole();
+builder.Logging.SetMinimumLevel(LogLevel.Debug);
+
+// In your service
+private readonly ILogger&lt;HubsService&gt; _logger;
+
+public HubsService(HttpClient httpClient, ILogger&lt;HubsService&gt; logger)
+{
+    _httpClient = httpClient;
+    _logger = logger;
+}
+
+public async Task&lt;string&gt; GetHubsAsync(string token)
+{
+    _logger.LogInformation("Fetching hubs with token: {Token}", token.Substring(0, 10) + "...");
+    
+    try
+    {
+        var response = await _httpClient.GetAsync($"{_config.BaseUrl}/project/v1/hubs");
+        _logger.LogInformation("Response status: {Status}", response.StatusCode);
+        
+        response.EnsureSuccessStatusCode();
+        var content = await response.Content.ReadAsStringAsync();
+        
+        _logger.LogInformation("Successfully retrieved hubs");
+        return content;
+    }
+    catch (Exception ex)
+    {
+        _logger.LogError(ex, "Failed to fetch hubs");
+        throw;
+    }
+}</code></pre>
+            </div>
+            
+            <button class="collapsible">Testing with Postman</button>
+            <div class="content">
+                <div class="card card-info">
+                    <h4>📮 Using Postman for Testing:</h4>
+                    <ol>
+                        <li>Get a token from Swagger UI: <code>GET /auth/token</code></li>
+                        <li>Create a new request in Postman</li>
+                        <li>Set method (GET, POST, etc.)</li>
+                        <li>Enter URL: <code>http://localhost:8080/hubs</code></li>
+                        <li>Add query parameter: <code>token</code> = your_access_token</li>
+                        <li>Send request</li>
+                    </ol>
+                    
+                    <p><strong>Or test APS APIs directly:</strong></p>
+                    <ol>
+                        <li>URL: <code>https://developer.api.autodesk.com/project/v1/hubs</code></li>
+                        <li>Authorization: Bearer Token</li>
+                        <li>Token: your_access_token</li>
+                        <li>Send request</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- Next Steps -->
+        <div class="section">
+            <h2>🚀 Next Steps & Extension Ideas</h2>
+            
+            <div class="card card-success">
+                <h4>💡 Project Extension Ideas:</h4>
+                
+                <h4>Beginner Level:</h4>
+                <ul>
+                    <li>Add file upload endpoint</li>
+                    <li>Implement pagination for large result sets</li>
+                    <li>Add more detailed error messages</li>
+                    <li>Create a "favorite projects" feature</li>
+                </ul>
+                
+                <h4>Intermediate Level:</h4>
+                <ul>
+                    <li>Build a simple frontend (React, Vue, or Blazor)</li>
+                    <li>Implement token refresh logic</li>
+                    <li>Add caching for frequently accessed data</li>
+                    <li>Create webhook listeners for APS events</li>
+                    <li>Add database storage for user preferences</li>
+                </ul>
+                
+                <h4>Advanced Level:</h4>
+                <ul>
+                    <li>Implement Model Derivative API (viewing 3D models)</li>
+                    <li>Add real-time notifications with SignalR</li>
+                    <li>Create bulk operations (batch file uploads)</li>
+                    <li>Build a desktop app (WPF, MAUI)</li>
+                    <li>Deploy to Azure with CI/CD pipeline</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Resources -->
+        <div class="section">
+            <h2>📖 Additional Resources</h2>
+            
+            <div class="card">
+                <h4>📚 Official Documentation:</h4>
+                <ul>
+                    <li><a href="https://aps.autodesk.com/en/docs" target="_blank">APS Documentation</a> - Complete API reference</li>
+                    <li><a href="https://aps.autodesk.com/en/docs/data/v2" target="_blank">Data Management API</a> - Hubs, projects, folders</li>
+                    <li><a href="https://aps.autodesk.com/en/docs/acc/v1" target="_blank">ACC API</a> - Companies, users, roles</li>
+                    <li><a href="https://aps.autodesk.com/en/docs/oauth/v2" target="_blank">OAuth Guide</a> - Authentication details</li>
+                </ul>
+                
+                <h4>🛠️ Development Tools:</h4>
+                <ul>
+                    <li><a href="https://aps.autodesk.com/" target="_blank">APS Portal</a> - Manage apps and credentials</li>
+                    <li><a href="https://www.postman.com/autodesk-forge" target="_blank">Postman Collections</a> - Test APIs in Postman</li>
+                    <li><a href="https://github.com/autodesk-platform-services" target="_blank">Code Samples</a> - Official sample code</li>
+                </ul>
+                
+                <h4>💬 Community:</h4>
+                <ul>
+                    <li><a href="https://aps.autodesk.com/topics/community" target="_blank">APS Community</a> - Learn how to code with APS</li>
+                    <li><a href="https://aps.autodesk.com/blog" target="_blank">APS Blog</a> - Tutorials and updates</li>
+                    <li><a href="https://stackoverflow.com/questions/tagged/autodesk-forge" target="_blank">Stack Overflow</a> - Technical Q&A</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="nav-buttons" style="margin-top: 50px;">
+            <a href="/" class="btn btn-primary">🏠 Back to Swagger</a>
+            <a href="/help.html" class="btn btn-secondary">📖 User Manual</a>
+        </div>
+        
+        <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 2px solid #E5E5E5; color: #666666;">
+            <p><strong>APS Workshop Developer Guide</strong></p>
+            <p>Copyright © 2025 Autodesk, Inc. | Licensed under MIT License</p>
+            <p>Happy Coding! 🎉</p>
+        </div>
+    </div>
+    
+    <script>
+        // Collapsible sections
+        var coll = document.getElementsByClassName("collapsible");
+        for (var i = 0; i < coll.length; i++) {
+            coll[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                content.classList.toggle("active");
+            });
+        }
+    </script>
+</body>
+</html>
+

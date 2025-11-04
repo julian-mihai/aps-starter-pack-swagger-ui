@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APS Workshop - Help Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: #000000;
+            background: #F5F5F5;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #FFFFFF;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            border: 1px solid #E5E5E5;
+        }
+        
+        .header {
+            background: #000000;
+            color: #FFFFFF;
+            padding: 50px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: #FFD100;
+        }
+        
+        .header h1 {
+            font-size: 2.8em;
+            margin-bottom: 15px;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+        
+        .header p {
+            font-size: 1.3em;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            padding: 30px;
+            background: #FFFFFF;
+            border-radius: 12px;
+            border: 2px solid #F0F0F0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+        
+        .section h2 {
+            color: #000000;
+            font-size: 1.9em;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #FFD100;
+        }
+        
+        .section h3 {
+            color: #333333;
+            font-size: 1.4em;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .endpoint {
+            background: #FAFAFA;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 12px;
+            border: 2px solid #E5E5E5;
+            border-left: 4px solid #FFD100;
+        }
+        
+        .endpoint-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+        
+        .method {
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 0.9em;
+            letter-spacing: 0.5px;
+        }
+        
+        .method.get {
+            background: #000000;
+            color: #FFD100;
+        }
+        
+        .method.post {
+            background: #FFD100;
+            color: #000000;
+        }
+        
+        .endpoint-path {
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 1.1em;
+            color: #000000;
+            font-weight: 600;
+        }
+        
+        .parameter {
+            background: #FFFBEB;
+            padding: 15px;
+            margin: 15px 0;
+            border-left: 4px solid #FFD100;
+            border-radius: 6px;
+        }
+        
+        .parameter strong {
+            color: #000000;
+            font-weight: 700;
+        }
+        
+        .warning {
+            background: #FEF2F2;
+            border-left: 4px solid #DC2626;
+            padding: 18px;
+            margin: 18px 0;
+            border-radius: 8px;
+            color: #991B1B;
+        }
+        
+        .warning strong {
+            color: #DC2626;
+            font-weight: 700;
+        }
+        
+        .success {
+            background: #F0FDF4;
+            border-left: 4px solid #16A34A;
+            padding: 18px;
+            margin: 18px 0;
+            border-radius: 8px;
+            color: #166534;
+        }
+        
+        .success strong {
+            color: #16A34A;
+            font-weight: 700;
+        }
+        
+        .info {
+            background: #EFF6FF;
+            border-left: 4px solid #2563EB;
+            padding: 18px;
+            margin: 18px 0;
+            border-radius: 8px;
+            color: #1E40AF;
+        }
+        
+        .info strong {
+            color: #2563EB;
+            font-weight: 700;
+        }
+        
+        .step {
+            background: #FFFFFF;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 12px;
+            border-left: 5px solid #FFD100;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+        
+        .step-number {
+            display: inline-block;
+            background: #FFD100;
+            color: #000000;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 36px;
+            font-weight: 700;
+            margin-right: 12px;
+            box-shadow: 0 2px 8px rgba(255, 209, 0, 0.3);
+        }
+        
+        code {
+            background: #F5F5F5;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-family: 'Monaco', 'Courier New', monospace;
+            color: #000000;
+            border: 1px solid #E5E5E5;
+            font-size: 0.95em;
+        }
+        
+        pre {
+            background: #1A1A1A;
+            color: #FFD100;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 15px 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border: 1px solid #333333;
+        }
+        
+        .back-button {
+            display: inline-block;
+            background: #FFD100;
+            color: #000000;
+            padding: 14px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            margin: 25px 0;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 15px rgba(255, 209, 0, 0.3);
+            border: 2px solid #FFD100;
+            letter-spacing: 0.3px;
+        }
+        
+        .back-button:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(255, 209, 0, 0.5);
+            background: #FFDB33;
+            border-color: #FFDB33;
+        }
+        
+        .tip {
+            background: #EFF6FF;
+            border-left: 4px solid #2563EB;
+            padding: 18px;
+            margin: 18px 0;
+            border-radius: 8px;
+            color: #1E40AF;
+        }
+        
+        .tip strong {
+            color: #2563EB;
+            font-weight: 700;
+        }
+        
+        .example {
+            background: #FAFAFA;
+            padding: 18px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border: 2px dashed #D1D1D1;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            border: 1px solid #E5E5E5;
+        }
+        
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #E5E5E5;
+        }
+        
+        th {
+            background: #000000;
+            color: #FFD100;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+        }
+        
+        tr:hover {
+            background: #FAFAFA;
+        }
+        
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+        
+        ul {
+            margin-left: 30px;
+            margin-top: 10px;
+        }
+        
+        li {
+            margin: 8px 0;
+        }
+        
+        /* SDK comparison grid class */
+        .sdk-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 30px 0;
+            align-items: start;
+        }
+        
+        /* Make the SDK comparison responsive on smaller screens */
+        @media (max-width: 1024px) {
+            .content {
+                padding: 30px 20px;
+            }
+            
+            .section {
+                padding: 20px;
+            }
+            
+            /* Stack columns on tablets */
+            .sdk-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header {
+                padding: 30px 20px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .header p {
+                font-size: 1.1em;
+            }
+            
+            .content {
+                padding: 20px 15px;
+            }
+            
+            .section {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎓 APS Workshop Help Guide</h1>
+            <p>A Step-by-Step Guide</p>
+        </div>
+        
+        <div class="content">
+            <div style="display: flex; gap: 15px; margin-bottom: 30px; flex-wrap: wrap;">
+                <a href="/" class="back-button">← Back to Swagger UI</a>
+                <a href="/about.html" class="back-button" style="background: #000000; color: #FFD100;">👨‍💻 Developer Guide</a>
+            </div>
+            
+            <!-- WHAT IS APS -->
+            <div class="section">
+                <h2>🧩 What is Autodesk Platform Services (APS)?</h2>
+                
+                <div class="info">
+                    <strong>Think of APS as Lego blocks for software development.</strong> Just like Lego pieces scattered on a table, APS provides cloud-enabled building blocks that are secure, scalable, and ready to use.
+                </div>
+                
+                <h3>The Power of Building Blocks</h3>
+                <p>Imagine building something out of Lego pieces — a house, a spaceship, or a city. <strong>Same blocks, different outcomes.</strong> That's what APS enables: <strong>you decide the solution, APS provides the parts.</strong></p>
+                
+                <p style="margin-top: 15px;">We don't have to rebuild everything every single time. You can pick the building blocks that fit your business processes and integrate them with what you already have.</p>
+                
+                <h3>What Can You Build?</h3>
+                <p>You can use APS in two powerful ways:</p>
+                
+                <div class="endpoint">
+                    <strong style="color: #000000;">🔧 Extend Existing Products</strong>
+                    <p style="margin-top: 8px;">Add new workflows on top of tools you already use. For example:</p>
+                    <ul style="margin-left: 20px; margin-top: 5px;">
+                        <li>Link Autodesk with ERP systems (SAP, Oracle)</li>
+                        <li>Connect to CRM platforms (Salesforce, Microsoft Dynamics)</li>
+                        <li>Automate data synchronization between systems</li>
+                        <li>Build custom approval workflows</li>
+                    </ul>
+                </div>
+                
+                <div class="endpoint">
+                    <strong style="color: #000000;">✨ Create Entirely New Solutions</strong>
+                    <p style="margin-top: 8px;">Build custom applications from scratch. For example:</p>
+                    <ul style="margin-left: 20px; margin-top: 5px;">
+                        <li>A dashboard that brings together design, cost, and schedule in one place</li>
+                        <li>Custom project management tools tailored to your workflow</li>
+                        <li>Automated reporting systems that pull data from multiple sources</li>
+                        <li>Client portals that show project status in real-time</li>
+                    </ul>
+                </div>
+                
+                <div class="success">
+                    <strong>🎯 The Bottom Line:</strong> Autodesk provides the blocks, but <strong>you decide</strong> whether to build a house, a spaceship, or something else entirely. <strong>APS doesn't limit you — it enables you.</strong>
+                </div>
+            </div>
+            
+            <!-- UNDERSTANDING TOKENS -->
+            <div class="section">
+                <h2>🔐 Understanding Authentication: 2-Legged vs 3-Legged Tokens</h2>
+                
+                <p>Before you start building, you need to understand <strong>authentication</strong> — the key that unlocks APS APIs. Think of authentication as getting the right badge to enter different areas of a building.</p>
+                
+                <h3>2-Legged Token (Server-to-Server)</h3>
+                <div class="endpoint">
+                    <div class="endpoint-header">
+                        <span class="method get">GET</span>
+                        <span class="endpoint-path">/auth/token</span>
+                    </div>
+                    <strong style="color: #000000;">What it is:</strong>
+                    <p style="margin-top: 8px;">A 2-legged token authenticates <strong>your application</strong> directly with Autodesk. It's like a master key that your app uses to access data.</p>
+                    
+                    <strong style="color: #000000; margin-top: 15px; display: block;">When to use it:</strong>
+                    <ul style="margin-left: 20px; margin-top: 5px;">
+                        <li>✅ Automated processes (no human involved)</li>
+                        <li>✅ Backend services and integrations</li>
+                        <li>✅ Reading public or shared data</li>
+                        <li>✅ System-to-system data synchronization</li>
+                        <li>✅ Scheduled tasks and batch jobs</li>
+                    </ul>
+                    
+                    <strong style="color: #000000; margin-top: 15px; display: block;">Example use cases:</strong>
+                    <ul style="margin-left: 20px; margin-top: 5px;">
+                        <li>📊 A nightly job that generates reports from ACC data</li>
+                        <li>🔄 Syncing project data to your company's data warehouse</li>
+                        <li>📈 A dashboard that displays project statistics</li>
+                        <li>🤖 Automated file processing and conversions</li>
+                    </ul>
+                    
+                    <div class="tip" style="margin-top: 15px;">
+                        <strong>💡 Key Point:</strong> 2-legged tokens represent <strong>your application</strong>, not a specific user. Use this when your app needs to work independently.
+                    </div>
+                </div>
+                
+                <h3>3-Legged Token (User Authorization)</h3>
+                <div class="endpoint">
+                    <div class="endpoint-header">
+                        <span class="method get">GET</span>
+                        <span class="endpoint-path">/auth/login</span>
+                    </div>
+                    <strong style="color: #000000;">What it is:</strong>
+                    <p style="margin-top: 8px;">A 3-legged token authenticates <strong>a specific user</strong> who logs in with their Autodesk credentials. It's like a personalized badge that shows who is accessing the data.</p>
+                    
+                    <strong style="color: #000000; margin-top: 15px; display: block;">When to use it:</strong>
+                    <ul style="margin-left: 20px; margin-top: 5px;">
+                        <li>✅ Actions performed by a specific user</li>
+                        <li>✅ User-specific data access (their projects, their files)</li>
+                        <li>✅ Web applications where users log in</li>
+                        <li>✅ Operations that require user consent</li>
+                        <li>✅ Audit trails showing who did what</li>
+                    </ul>
+                    
+                    <strong style="color: #000000; margin-top: 15px; display: block;">Example use cases:</strong>
+                    <ul style="margin-left: 20px; margin-top: 5px;">
+                        <li>👤 A web portal where users manage their own projects</li>
+                        <li>📝 Applications that create files on behalf of a user</li>
+                        <li>✏️ Tools that edit documents (needs user permission)</li>
+                        <li>🔒 Access to private or sensitive project data</li>
+                    </ul>
+                    
+                    <div class="warning" style="margin-top: 15px;">
+                        <strong>⚠️ Important:</strong> 3-legged tokens represent <strong>a specific user</strong>. Use this when actions need to be attributed to a person, or when accessing user-specific data.
+                    </div>
+                </div>
+                
+                <h3>Quick Decision Guide</h3>
+                <table style="margin-top: 20px;">
+                    <thead>
+                        <tr>
+                            <th>Question</th>
+                            <th>2-Legged Token</th>
+                            <th>3-Legged Token</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Does a user need to log in?</td>
+                            <td>No</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td>Is it an automated process?</td>
+                            <td>Yes ✅</td>
+                            <td>No</td>
+                        </tr>
+                        <tr>
+                            <td>Do you need user permissions?</td>
+                            <td>No</td>
+                            <td>Yes ✅</td>
+                        </tr>
+                        <tr>
+                            <td>Who does it represent?</td>
+                            <td>Your application</td>
+                            <td>Specific user</td>
+                        </tr>
+                        <tr>
+                            <td>Access level</td>
+                            <td>Public/shared data</td>
+                            <td>User's personal data</td>
+                        </tr>
+                        <tr>
+                            <td>Typical duration</td>
+                            <td>Long-running services</td>
+                            <td>User session</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="success" style="margin-top: 20px;">
+                    <strong>🎓 For This Workshop:</strong> We'll primarily use <strong>2-legged tokens</strong> to keep things simple. This lets you explore the APIs without needing to implement a full user login system. In production, you'll choose based on your specific needs!
+                </div>
+            </div>
+            
+            <!-- YOUR APS JOURNEY -->
+            <div class="section">
+                <h2>🚀 Your APS Journey Starts Here</h2>
+                
+                <p style="font-size: 1.1em;">This workshop is your first step in a powerful journey. You're not just learning to call APIs — you're learning to <strong>build solutions</strong> that can:</p>
+                
+                <div class="endpoint">
+                    <strong style="color: #000000;">💼 Transform Your Business</strong>
+                    <ul style="margin-left: 20px; margin-top: 5px;">
+                        <li>Automate repetitive tasks that waste hours every day</li>
+                        <li>Connect systems that never talked to each other before</li>
+                        <li>Give stakeholders real-time insights they've never had</li>
+                        <li>Build custom tools that fit exactly how your team works</li>
+                    </ul>
+                </div>
+                
+                <div class="endpoint">
+                    <strong style="color: #000000;">🎯 Solve Real Problems</strong>
+                    <ul style="margin-left: 20px; margin-top: 5px;">
+                        <li>Eliminate manual data entry between systems</li>
+                        <li>Create custom reports that answer your specific questions</li>
+                        <li>Build approval workflows that match your company's process</li>
+                        <li>Integrate with tools your team already uses every day</li>
+                    </ul>
+                </div>
+                
+                <div class="endpoint">
+                    <strong style="color: #000000;">🌟 Create Value</strong>
+                    <ul style="margin-left: 20px; margin-top: 5px;">
+                        <li>Save time and reduce errors</li>
+                        <li>Improve collaboration across teams</li>
+                        <li>Make data-driven decisions faster</li>
+                        <li>Build competitive advantages with custom solutions</li>
+                    </ul>
+                </div>
+                
+                <div class="info" style="margin-top: 20px;">
+                    <strong>🎨 Remember the Lego analogy:</strong> Every API call you make in this workshop is like learning how a specific Lego piece works. Once you understand the pieces, you can build anything you can imagine!
+                </div>
+            </div>
+            
+            <!-- GETTING STARTED -->
+            <div class="section">
+                <h2>📖 Getting Started with the Workshop</h2>
+                
+                <div class="success">
+                    <strong>Ready to build?</strong> This guide will walk you through using the APS Workshop API step-by-step. 
+                    We'll start simple and build up your knowledge gradually!
+                </div>
+                
+                <h3>What is Swagger UI?</h3>
+                <p>Swagger UI is the interactive page where you can test APIs. Think of it as a control panel where you can:</p>
+                <ul>
+                    <li>✅ See all available API endpoints</li>
+                    <li>✅ Try them out with real data</li>
+                    <li>✅ See the results instantly</li>
+                    <li>✅ Learn how APIs work without writing code</li>
+                </ul>
+            </div>
+            
+            <!-- STEP BY STEP WORKFLOW -->
+            <div class="section">
+                <h2>📋 Step-by-Step Workflow</h2>
+                
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Get an Access Token</strong>
+                    <p style="margin-top: 10px;">First, you need a "token" - think of it as a temporary password that proves you're allowed to access the data.</p>
+                    <ul>
+                        <li>Go to section <code>1. Authentication 🔐</code></li>
+                        <li>Click on <code>GET /auth/token</code> (it says "2-Legged Token")</li>
+                        <li>Click the blue <strong>"Execute"</strong> button</li>
+                        <li>Copy the <code>access_token</code> from the response (it's a long string of letters and numbers)</li>
+                    </ul>
+                    <div class="tip" style="margin-top: 10px;">
+                        <strong>💡 Tip:</strong> The token expires after 1 hour. If you get "Unauthorized" errors later, come back and get a fresh token!
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Get Your Hubs</strong>
+                    <p style="margin-top: 10px;">A "Hub" is your BIM 360 or ACC account.</p>
+                    <ul>
+                        <li>Go to section <code>2. Hubs 🏗️ Data Management API</code></li>
+                        <li>Click on <code>GET /hubs</code></li>
+                        <li>Click <strong>"Try it out"</strong></li>
+                        <li>Paste your token in the <code>token</code> field</li>
+                        <li>Click <strong>"Execute"</strong></li>
+                        <li>Copy a <code>hubId</code> from the response (looks like "b.3def0ac0-6276...")</li>
+                    </ul>
+                    <div class="warning" style="margin-top: 10px;">
+                        <strong>⚠️ Important:</strong> The hubId MUST start with "b." - don't remove this prefix!
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Get Projects in Your Hub</strong>
+                    <p style="margin-top: 10px;">Projects are the individual construction projects within your account.</p>
+                    <ul>
+                        <li>Go to section <code>3. Projects 📁 Data Management API</code></li>
+                        <li>Click on <code>GET /projects</code></li>
+                        <li>Click <strong>"Try it out"</strong></li>
+                        <li>Paste your token</li>
+                        <li>Paste your hubId (with the "b." prefix!)</li>
+                        <li>Click <strong>"Execute"</strong></li>
+                        <li>Copy a <code>projectId</code> from the response</li>
+                    </ul>
+                </div>
+                
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <strong>Explore Further!</strong>
+                    <p style="margin-top: 10px;">Now you can explore folders, users, companies, and more using your token, hubId, and projectId!</p>
+                </div>
+            </div>
+            
+            <!-- COMMON ERRORS -->
+            <div class="section">
+                <h2>❌ Common Errors & Solutions</h2>
+                
+                <h3>Error: "Unauthorized" (401)</h3>
+                <div class="warning">
+                    <strong>Problem:</strong> Your token expired or is invalid<br>
+                    <strong>Solution:</strong> Go back to <code>GET /auth/token</code> and get a fresh token!
+                </div>
+                
+                <h3>Error: "Forbidden" (403)</h3>
+                <div class="warning">
+                    <strong>Problem:</strong> Your token doesn't have permission<br>
+                    <strong>Solution:</strong> Make sure your APS app has all APIs enabled in the APS Portal
+                </div>
+                
+                <h3>Error: "Bad Request" (400)</h3>
+                <div class="warning">
+                    <strong>Problem:</strong> Missing or wrong "b." prefix<br>
+                    <strong>Solution:</strong> 
+                    <ul style="margin-left: 20px; margin-top: 5px;">
+                        <li>For Hubs/Projects/Folders: ADD "b." prefix</li>
+                        <li>For Companies/Users/Roles: We auto-remove it, so either way works!</li>
+                    </ul>
+                </div>
+                
+                <h3>Error: "Not Found" (404)</h3>
+                <div class="warning">
+                    <strong>Problem:</strong> The resource doesn't exist or wrong ID<br>
+                    <strong>Solution:</strong> Double-check your IDs - copy them exactly from previous API responses
+                </div>
+            </div>
+            
+            <!-- QUICK REFERENCE TABLE -->
+            <div class="section">
+                <h2>📊 Quick Reference: When to Use "b." Prefix</h2>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>API Section</th>
+                            <th>hubId / accountId</th>
+                            <th>projectId</th>
+                            <th>Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Hubs</td>
+                            <td>✅ MUST have "b."</td>
+                            <td>-</td>
+                            <td>Data Management API</td>
+                        </tr>
+                        <tr>
+                            <td>Projects</td>
+                            <td>✅ MUST have "b."</td>
+                            <td>✅ MUST have "b."</td>
+                            <td>Data Management API</td>
+                        </tr>
+                        <tr>
+                            <td>Companies</td>
+                            <td>✅ Auto-removed for you</td>
+                            <td>✅ Auto-removed for you</td>
+                            <td>ACC API</td>
+                        </tr>
+                        <tr>
+                            <td>Roles</td>
+                            <td>✅ Auto-removed for you</td>
+                            <td>✅ Auto-removed for you</td>
+                            <td>ACC API</td>
+                        </tr>
+                        <tr>
+                            <td>Users</td>
+                            <td>✅ Auto-removed for you</td>
+                            <td>✅ Auto-removed for you</td>
+                            <td>ACC API</td>
+                        </tr>
+                        <tr>
+                            <td>Folders</td>
+                            <td>-</td>
+                            <td>✅ MUST have "b."</td>
+                            <td>Data Management API</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- TIPS FOR SUCCESS -->
+            <div class="section">
+                <h2>💡 Tips for Success</h2>
+                
+                <div class="success">
+                    <strong>✅ Always start with authentication</strong> - Get your token first before trying anything else
+                </div>
+                
+                <div class="success">
+                    <strong>✅ Follow the numbered sections</strong> - They're in the right order for a reason!
+                </div>
+                
+                <div class="success">
+                    <strong>✅ Copy IDs exactly</strong> - Don't type them manually, always copy-paste from API responses
+                </div>
+                
+                <div class="success">
+                    <strong>✅ Keep your token handy</strong> - You'll need it for every API call
+                </div>
+                
+                <div class="success">
+                    <strong>✅ Read the error messages</strong> - They usually tell you exactly what's wrong
+                </div>
+                
+                <div class="success">
+                    <strong>✅ Don't be afraid to experiment</strong> - You can't break anything by reading data!
+                </div>
+            </div>
+            
+            <!-- TWO WAYS TO BUILD WITH APS -->
+            <div class="section" style="background: linear-gradient(135deg, #FFFBEB 0%, #FFF8DC 100%); border: 3px solid #FFD100;">
+                <h2 style="color: #000000; border-bottom: 3px solid #FFD100; padding-bottom: 15px;">🔧 Two Ways to Build with APS</h2>
+                
+                <p style="font-size: 1.1em; margin: 25px 0; color: #333333;">
+                    There are <strong>two main approaches</strong> to working with Autodesk Platform Services APIs. This workshop uses the <strong>REST API approach</strong>, but you should know about both options!
+                </p>
+                
+                <div class="sdk-grid">
+                    <!-- REST API Approach (What we use) -->
+                    <div style="background: #FFFFFF; border: 3px solid #FFD100; border-radius: 12px; padding: 25px; height: 100%;">
+                        <h3 style="color: #000000; margin-bottom: 15px;">📖 REST API Approach</h3>
+                        <div style="background: #FFD100; color: #000000; padding: 8px 15px; border-radius: 6px; font-weight: 700; margin-bottom: 15px; text-align: center;">
+                            ⭐ WHAT THIS WORKSHOP USES ⭐
+                        </div>
+                        
+                        <p style="margin: 15px 0; color: #333333;">
+                            <strong>What it is:</strong> Direct HTTP calls to APS APIs using built-in .NET tools like <code>HttpClient</code> and <code>System.Text.Json</code>.
+                        </p>
+                        
+                        <p style="margin: 15px 0; color: #333333;">
+                            <strong>What you learn:</strong>
+                        </p>
+                        <ul style="margin: 10px 0 10px 20px; color: #333333;">
+                            <li>✅ How OAuth 2.0 actually works</li>
+                            <li>✅ How to make REST API calls from scratch</li>
+                            <li>✅ How to parse JSON responses</li>
+                            <li>✅ How HTTP headers and authentication work</li>
+                            <li>✅ Full control over every request</li>
+                        </ul>
+                        
+                        <p style="margin: 15px 0; color: #333333;">
+                            <strong>Best for:</strong>
+                        </p>
+                        <ul style="margin: 10px 0 10px 20px; color: #333333;">
+                            <li>📚 Learning how APIs work</li>
+                            <li>🎓 Understanding the fundamentals</li>
+                            <li>🔧 Custom integrations</li>
+                            <li>🔍 Debugging and troubleshooting</li>
+                        </ul>
+                        
+                        <div style="background: #F0F0F0; padding: 15px; border-radius: 8px; margin-top: 15px;">
+                            <strong style="color: #000000;">Example Code:</strong>
+                            <pre style="background: #FFFFFF; padding: 12px; border-radius: 6px; overflow-x: auto; margin-top: 10px; font-size: 0.85em; line-height: 1.4; white-space: pre-wrap; word-wrap: break-word;"><code>var client = new HttpClient();
+var request = new HttpRequestMessage(
+    HttpMethod.Post, 
+    "https://developer.api.autodesk.com/
+    authentication/v2/token"
+);
+request.Content = new FormUrlEncodedContent(
+    new {
+        client_id = "your_id",
+        client_secret = "your_secret",
+        grant_type = "client_credentials"
+    });
+var response = await client.SendAsync(request);
+var token = await response.Content
+    .ReadAsStringAsync();</code></pre>
+                        </div>
+                    </div>
+                    
+                    <!-- SDK Approach -->
+                    <div style="background: #FFFFFF; border: 3px solid #000000; border-radius: 12px; padding: 25px; height: 100%;">
+                        <h3 style="color: #000000; margin-bottom: 15px;">📦 Autodesk SDK Approach</h3>
+                        <div style="background: #000000; color: #FFD100; padding: 8px 15px; border-radius: 6px; font-weight: 700; margin-bottom: 15px; text-align: center;">
+                            🚀 PRODUCTION-READY OPTION 🚀
+                        </div>
+                        
+                        <p style="margin: 15px 0; color: #333333;">
+                            <strong>What it is:</strong> Official NuGet packages from Autodesk that wrap the REST APIs with easy-to-use C# classes and methods.
+                        </p>
+                        
+                        <p style="margin: 15px 0; color: #333333;">
+                            <strong>Available SDKs:</strong>
+                        </p>
+                        <ul style="margin: 10px 0 10px 20px; color: #333333; font-size: 0.95em;">
+                            <li><code>Autodesk.Authentication</code> (v2.0.1)</li>
+                            <li><code>Autodesk.DataManagement</code> (v2.1.2)</li>
+                            <li><code>Autodesk.Oss</code> (v2.2.3)</li>
+                            <li><code>Autodesk.ModelDerivative</code> (v2.2.0)</li>
+                            <li><code>Autodesk.Webhooks</code> (v3.3.0)</li>
+                            <li><code>Autodesk.SDKManager</code> (v1.1.2)</li>
+                            <li><code>Autodesk.Construction.Issues</code> (beta)</li>
+                            <li><code>Autodesk.Construction.AccountAdmin</code> (beta)</li>
+                        </ul>
+                        
+                        <p style="margin: 15px 0; color: #333333;">
+                            <strong>Best for:</strong>
+                        </p>
+                        <ul style="margin: 10px 0 10px 20px; color: #333333;">
+                            <li>⚡ Fast development</li>
+                            <li>🏢 Production applications</li>
+                            <li>✅ Type-safe code (IntelliSense)</li>
+                            <li>🛡️ Built-in error handling</li>
+                        </ul>
+                        
+                        <div style="background: #F0F0F0; padding: 15px; border-radius: 8px; margin-top: 15px;">
+                            <strong style="color: #000000;">Example Code:</strong>
+                            <pre style="background: #FFFFFF; padding: 12px; border-radius: 6px; overflow-x: auto; margin-top: 10px; font-size: 0.85em; line-height: 1.4;"><code>using Autodesk.Authentication;
+
+var authClient = 
+    new AuthenticationClient();
+var token = await authClient
+    .GetTwoLeggedTokenAsync(
+        clientId,
+        clientSecret,
+        new[] { Scopes.DataRead }
+    );
+
+// That's it! Much simpler!</code></pre>
+                        </div>
+                        
+                        <div style="background: #FFFBEB; border: 2px solid #FFD100; padding: 15px; border-radius: 8px; margin-top: 15px;">
+                            <strong style="color: #000000;">📍 Where to find them:</strong><br>
+                            <a href="https://www.nuget.org/profiles/AutodeskPlatformServices.SDK" target="_blank" style="color: #000000; text-decoration: none; font-weight: 700; border-bottom: 2px solid #FFD100; padding-bottom: 2px; margin-top: 8px; display: inline-block;">
+                                NuGet: AutodeskPlatformServices.SDK →
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Comparison Table -->
+                <div style="margin: 30px 0;">
+                    <h3 style="color: #000000; margin-bottom: 20px; text-align: center;">⚖️ Quick Comparison</h3>
+                    <table style="width: 100%; border-collapse: collapse; background: #FFFFFF;">
+                        <thead>
+                            <tr style="background: #000000; color: #FFD100;">
+                                <th style="padding: 15px; text-align: left; border: 2px solid #FFD100;">Feature</th>
+                                <th style="padding: 15px; text-align: center; border: 2px solid #FFD100;">REST API (This Workshop)</th>
+                                <th style="padding: 15px; text-align: center; border: 2px solid #FFD100;">Autodesk SDK</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="background: #FFFBEB;">
+                                <td style="padding: 12px; border: 1px solid #E5E5E5;"><strong>Learning Value</strong></td>
+                                <td style="padding: 12px; border: 1px solid #E5E5E5; text-align: center;">⭐⭐⭐⭐⭐</td>
+                                <td style="padding: 12px; border: 1px solid #E5E5E5; text-align: center;">⭐⭐</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px; border: 1px solid #E5E5E5;"><strong>Development Speed</strong></td>
+                                <td style="padding: 12px; border: 1px solid #E5E5E5; text-align: center;">⭐⭐⭐</td>
+                                <td style="padding: 12px; border: 1px solid #E5E5E5; text-align: center;">⭐⭐⭐⭐⭐</td>
+                            </tr>
+                            <tr style="background: #FFFBEB;">
+                                <td style="padding: 12px; border: 1px solid #E5E5E5;"><strong>Flexibility</strong></td>
+                                <td style="padding: 12px; border: 1px solid #E5E5E5; text-align: center;">⭐⭐⭐⭐⭐</td>
+                                <td style="padding: 12px; border: 1px solid #E5E5E5; text-align: center;">⭐⭐⭐</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px; border: 1px solid #E5E5E5;"><strong>Dependencies</strong></td>
+                                <td style="padding: 12px; border: 1px solid #E5E5E5; text-align: center;">1 package (Swashbuckle)</td>
+                                <td style="padding: 12px; border: 1px solid #E5E5E5; text-align: center;">6+ packages</td>
+                            </tr>
+                            <tr style="background: #FFFBEB;">
+                                <td style="padding: 12px; border: 1px solid #E5E5E5;"><strong>IntelliSense Support</strong></td>
+                                <td style="padding: 12px; border: 1px solid #E5E5E5; text-align: center;">Manual</td>
+                                <td style="padding: 12px; border: 1px solid #E5E5E5; text-align: center;">Full</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px; border: 1px solid #E5E5E5;"><strong>Debugging Ease</strong></td>
+                                <td style="padding: 12px; border: 1px solid #E5E5E5; text-align: center;">See everything</td>
+                                <td style="padding: 12px; border: 1px solid #E5E5E5; text-align: center;">Abstracted</td>
+                            </tr>
+                            <tr style="background: #FFFBEB;">
+                                <td style="padding: 12px; border: 1px solid #E5E5E5;"><strong>Best For</strong></td>
+                                <td style="padding: 12px; border: 1px solid #E5E5E5; text-align: center;">Learning & Custom</td>
+                                <td style="padding: 12px; border: 1px solid #E5E5E5; text-align: center;">Production Apps</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Why We Chose REST API -->
+                <div style="background: #000000; color: #FFFFFF; padding: 25px; border-radius: 12px; margin-top: 30px;">
+                    <h3 style="color: #FFD100; margin-bottom: 15px;">🎓 Why This Workshop Uses REST API</h3>
+                    <p style="margin: 15px 0; line-height: 1.8;">
+                        We deliberately chose the <strong style="color: #FFD100;">REST API approach</strong> for this workshop because our goal is to <strong style="color: #FFD100;">teach you the fundamentals</strong>. When you understand how the APIs work at the HTTP level, you can:
+                    </p>
+                    <ul style="margin: 15px 0 15px 25px; line-height: 1.8;">
+                        <li>✅ Debug any APS integration (even in other languages)</li>
+                        <li>✅ Understand what the SDK is doing "under the hood"</li>
+                        <li>✅ Work with ANY REST API (not just Autodesk's)</li>
+                        <li>✅ Make informed decisions about architecture</li>
+                        <li>✅ Customize beyond what the SDK offers</li>
+                    </ul>
+                    <p style="margin: 15px 0; line-height: 1.8;">
+                        <strong style="color: #FFD100;">After this workshop,</strong> you'll be ready to use either approach confidently. You might even choose to use the Autodesk SDKs in your production apps — and that's perfectly fine! The knowledge you gain here will make you a better developer regardless of which tools you use.
+                    </p>
+                </div>
+                
+                <!-- Next Steps -->
+                <div style="background: #FFFBEB; border: 2px solid #FFD100; padding: 20px; border-radius: 12px; margin-top: 20px;">
+                    <h3 style="color: #000000; margin-bottom: 15px;">🚀 Your Next Steps</h3>
+                    <ol style="margin: 10px 0 10px 25px; color: #333333; line-height: 1.8;">
+                        <li><strong>Complete this workshop</strong> using the REST API approach to understand the fundamentals</li>
+                        <li><strong>Explore the <a href="https://www.nuget.org/profiles/AutodeskPlatformServices.SDK" target="_blank" style="color: #000000; text-decoration: none; font-weight: 700; border-bottom: 2px solid #FFD100; padding-bottom: 2px;">Autodesk SDKs on NuGet</a></strong> to see what's available</li>
+                        <li><strong>Try building a small project</strong> with the SDKs to compare the experience</li>
+                        <li><strong>Choose the right tool</strong> for your specific project (both are valid!)</li>
+                    </ol>
+                </div>
+            </div>
+            
+            <!-- NEED MORE HELP -->
+            <div class="section" style="text-align: center; background: #FFFBEB; border: 3px solid #FFD100;">
+                <h2 style="color: #000000; border-bottom: 3px solid #FFD100;">❓ Need More Help?</h2>
+                <p style="font-size: 1.15em; margin: 20px 0; color: #333333;">
+                    <strong>For Developers:</strong> Check out the <a href="/about.html" style="color: #000000; text-decoration: none; font-weight: 700; border-bottom: 2px solid #FFD100; padding-bottom: 2px;">Developer Guide</a> for technical architecture and code patterns!
+                </p>
+                <p style="font-size: 1.15em; color: #333333;">
+                    <strong>For Everyone:</strong> Visit the <a href="https://aps.autodesk.com/en/docs" style="color: #000000; text-decoration: none; font-weight: 700; border-bottom: 2px solid #FFD100; padding-bottom: 2px;">APS Documentation</a>
+                </p>
+            </div>
+            
+            <div style="display: flex; gap: 15px; margin-top: 30px; flex-wrap: wrap;">
+                <a href="/" class="back-button">← Back to Swagger UI</a>
+                <a href="/about.html" class="back-button" style="background: #000000; color: #FFD100;">👨‍💻 Developer Guide</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
